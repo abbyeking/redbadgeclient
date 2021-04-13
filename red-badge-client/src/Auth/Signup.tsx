@@ -1,108 +1,59 @@
-import React, { Component } from "react";
-import { Button } from "@material-ui/core";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import React, { Component } from "react"
+import { FormGroup, Label, Form, Button, Input } from "reactstrap"
 
+type acceptedProps = {
+    token: any
+}
 
-type UserState = {
-  email: string;
-  password: string;
-};
+type valueTypes = {
+    email: string;
+    password: string;
+}
 
-type AcceptedProps = {
-  updateSessionToken: (newToken: string) => void;
-  updateUserRole: (newUserRole: string) => void;
-};
+export default class Register extends Component<acceptedProps, valueTypes> {
+    constructor(props: acceptedProps) {
+        super(props)
+        this.state = {
+            email: "",
+            password: ""
+        }
+    }
 
-export class Signup extends Component<AcceptedProps, UserState> {
-  constructor(props: AcceptedProps) {
-    super(props);
-    this.state = {
-      email: "",
-      password: "",
-    };
-  }
-
-  handleSubmit = (e: any) => {
-    if (
-      this.state.email !== "" &&
-      this.state.password !== ""
-    ) {
-      e.preventDefault();
-      fetch('localhost:3000/user/signup', {
+handleSubmit = (event: any)  => {
+    event.preventDefault()
+    fetch("http://localhost:3000/user/signup", {
         method: "POST",
         body: JSON.stringify({
-          username: this.state.email,
-          password: this.state.password,
-          admin: "false",
+            email: this.state.email,
+            password: this.state.password
         }),
         headers: new Headers({
-          "Content-Type": "application/json",
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          this.props.updateSessionToken(data.sessionToken);
-        });
-    } else {
-      alert("None of the fields can be empty");
-    }
-  };
-  handleEmailChange = (event: any) => {
-    const email = event.target.value;
-    this.setState({ email: email });
-  };
-  handlePasswordChange = (event: any) => {
-    const password = event.target.value;
-    this.setState({ password: password });
-  };
-
-  render() {
-    return (
-      <div id="signupDiv">
-        <h1 id="signupHeading">Sign Up to Join</h1>
-
-        <ValidatorForm
-          style={{
-            marginLeft: "auto",
-            marginRight: "auto",
-            width: "35%",
-            display: "block",
-            backgroundColor: "#FFFFFF",
-          }}
-          ref="form"
-          onSubmit={this.handleSubmit}
-          onError={(errors) => console.log(errors)}
-        >
-          <TextValidator
-            label="Email"
-            onChange={(e) => this.handleEmailChange(e)}
-            name="Email"
-            value={this.state.email}
-            validators={["required"]}
-            errorMessages={[
-              "this field is required",
-            ]}
-            autoComplete="off"
-          />
-          <TextValidator
-            label="Password"
-            onChange={this.handlePasswordChange}
-            name="password"
-            value={this.state.password}
-            type="password"
-            validators={["minStringLength:6", "required"]}
-            errorMessages={[
-              "password should be more than 5 letters",
-              "this field is required",
-            ]}
-          />
-          <br />
-          <Button variant="contained" onClick={this.handleSubmit}>
-            Sign Up
-          </Button>
-        </ValidatorForm>
-      </div>
-    );
-  }
+            "Content-Type": "application/json"
+        })
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        this.props.token(data.sessionToken)
+        console.log(data)
+    })
 }
+
+    render() {
+        return(
+            <div>
+                <h4>Register</h4>
+                <Form onSubmit={this.handleSubmit}>
+                    <FormGroup>
+                        <Label htmlFor="email">Email</Label>
+                        <Input name="email" type="text" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value})} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="password">Password</Label>
+                        <Input name="password" type="password" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value})} />
+                    </FormGroup>
+                    <Button type="submit" color="primary">Register</Button>
+                </Form>
+            </div>
+        )
+    }
+  }

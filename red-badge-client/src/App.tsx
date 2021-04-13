@@ -1,45 +1,45 @@
-import React, { useState } from 'react'
-import logo from './logo.svg'
+import React, { Component } from 'react'
 import './App.css'
+import "bootstrap/dist/css/bootstrap.min.css"
+import Auth from "./Auth/Auth"
 
-function App() {
-  const [count, setCount] = useState(0)
+type valueTypes = {
+  token: any
+}
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
+
+class App extends Component<{}, valueTypes> {
+  constructor(props: valueTypes) {
+    super(props)
+    this.state = {
+      token: ""
+    }
+}
+
+componentDidMount() {
+  if(localStorage.getItem("sessionToken")) {
+    this.setState({
+      token: localStorage.getItem("sessionToken")
+    })
+  }
+}
+
+updateToken = (newToken: any) => {
+  localStorage.setItem("sessionToken", newToken)
+  this.setState({ token: newToken})
+  console.log("is this updating the token", this.state.token)
+}
+
+
+  render() {
+    return (
+      <div className="App">
+       <h1 className='text-green-500'>Hello</h1>
+      <Auth token={this.updateToken} />
+      </div>
+    )
+  }
 }
 
 export default App
+
