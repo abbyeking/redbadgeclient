@@ -24,8 +24,8 @@ export default class Login extends Component<acceptedProps, valueTypes> {
         fetch('http://localhost:3000/user/login', {
             method: 'POST',
             body: JSON.stringify({
-                email: this.state.email,
-                password: this.state.password
+                user:{email: this.state.email,
+                password: this.state.password}
             }),
             headers: new Headers({
                 'Content-Type': 'application/json'

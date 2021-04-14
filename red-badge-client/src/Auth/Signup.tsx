@@ -10,7 +10,7 @@ type valueTypes = {
     password: string;
 }
 
-export default class Register extends Component<acceptedProps, valueTypes> {
+export default class Signup extends Component<acceptedProps, valueTypes> {
     constructor(props: acceptedProps) {
         super(props)
         this.state = {
@@ -21,11 +21,12 @@ export default class Register extends Component<acceptedProps, valueTypes> {
 
 handleSubmit = (event: any)  => {
     event.preventDefault()
+    console.log(this.state)
     fetch("http://localhost:3000/user/signup", {
         method: "POST",
         body: JSON.stringify({
-            email: this.state.email,
-            password: this.state.password
+          user: {email: this.state.email,
+          password: this.state.password}
         }),
         headers: new Headers({
             "Content-Type": "application/json"
@@ -33,8 +34,8 @@ handleSubmit = (event: any)  => {
     })
     .then((res) => res.json())
     .then((data) => {
-        this.props.token(data.sessionToken)
         console.log(data)
+        this.props.token(data.sessionToken)
     })
 }
 
