@@ -1,61 +1,51 @@
-import React, { Component, SyntheticEvent } from 'react'
+import React from 'react'
 import { FormGroup, Label, Form, Button, Input } from "reactstrap"
 
-// interface Props {
-    
-// }
-interface State {
-    searchTerm: string
+let base_url: string = 'https://api.spotify.com/v1/episodes';
+const key: string = 'BQCd0Udc9IH7dUklzdGAIDAcLUqE-UTMS00KGtKwxxBBBqgEsFX-Pe51HtdmE-I3oabcdct8-2cijJ8MrBEfah43Tc6pC-79g8f3erUP-I14YJTeSGhZtaKNPS4sVBHrJ0o6E02KW3wOq5VH0uwV'
+
+export interface PodcastMainProps {
+    // URL: (newToken: any) => void;
+    token: any;
 }
 
-export default class Podcast extends Component<{}, State> {
-    constructor (props: {}) {       
+export interface PodcastMainState {
+    podcast: string
+}
+
+class Podcast extends React.Component<PodcastMainProps, PodcastMainState> {
+    constructor (props: PodcastMainProps) {       
     super(props);
-    this.state={
-        searchTerm: "",
-    };
-    this.handleSubmit =this.handleSubmit.bind (this);
+    this.state={podcast: ''};
     }
 
-    spotifyFetch = async () => {
-        let base_url: string = 'https://api.spotify.com/v1/episodes';
-            const key: string = 'BQCd0Udc9IH7dUklzdGAIDAcLUqE-UTMS00KGtKwxxBBBqgEsFX-Pe51HtdmE-I3oabcdct8-2cijJ8MrBEfah43Tc6pC-79g8f3erUP-I14YJTeSGhZtaKNPS4sVBHrJ0o6E02KW3wOq5VH0uwV'
-        let url: string = `${base_url}?api-key=${key}&q=${this.state.searchTerm}`;
+onSearch = (e:any) => {
+    e.preventDefault();
+    fetch(`${base_url}?api-key=${key}&q=${this.state.podcast}`, {
 
-        console.log(url);
-
-        const response = await fetch(url);
-        const data = await response.json();
-            this.setState({
-        results: data.response.docs,
+    headers: new Headers({
+        'Content-Type': "application/json"
     })
-  };
+})
 
-  handleSubmit (event: SyntheticEvent): void {
-      event.preventDefault();
-      this.spotifyFetch();
-  }
+    .then((res) => res.json())
+    .then((json) => {
+        console.log(json)
+        this.setState({podcast:json})
+            
+    })
+}
 
-    
 
     render() {
         return (
+            
             <div>
-                <Form onSubmit={this.handleSubmit}>
-                    <FormGroup>
-                        <Label for="searchTerm">Enter a search term</Label>
-                        <Input
-                        type="text"
-                        id="searchTerm"
-                        name="searchTerm"
-                        value={this.state.searchTerm}
-                        onChange = {this.handleChange}
-                        />
-                    </FormGroup>
-                    <Button type="submit">Search</Button>
-                </Form>
+                <h1>Search for a Podcast</h1>
+                <Button onClick={(e) => this.onSearch(e)}>Submit</Button>
             </div>
         )
     }
 }
 
+export default Podcast
