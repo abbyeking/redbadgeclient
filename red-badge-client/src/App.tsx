@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import './App.css'
 import "bootstrap/dist/css/bootstrap.min.css"
-import {
-  BrowserRouter as Router,
-  Link,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+// import {
+//   BrowserRouter as Router,
+//   Link,
+//   Switch,
+//   Route,
+//   Redirect,
+// } from "react-router-dom";
 import Auth from "./Auth/Auth"
 import Navbar from './Components/Site/Navbar'
 import Podcast from './Components/Podcast/Podcast'
@@ -57,7 +57,7 @@ protectedViews = () => {
   render() {
     return (
       <div className="App">
-       <h1 className='text-green-500'>Welcome to Caster!</h1>
+       <h1 className='text-green-500'>Caster</h1>
        <Navbar logout={this.clearToken} token={this.updateToken} />
        {this.protectedViews()}
       </div>
