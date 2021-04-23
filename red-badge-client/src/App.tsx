@@ -1,15 +1,8 @@
 import React, { Component } from 'react'
 import './App.css'
 import "bootstrap/dist/css/bootstrap.min.css"
-// import {
-//   BrowserRouter as Router,
-//   Link,
-//   Switch,
-//   Route,
-//   Redirect,
-// } from "react-router-dom";
 import Auth from "./Auth/Auth"
-import Navbar from './Components/Site/Navbar'
+import Sitebar from './Components/Site/Sitebar'
 import Podcast from './Components/Podcast/Podcast'
 
 type valueTypes = {
@@ -47,8 +40,7 @@ clearToken = () => {
 
 protectedViews = () => {
   return this.state.token === localStorage.getItem("sessionToken") ? (
-    <Podcast 
-    token={this.state.token} />
+    <Podcast token={this.state.token} />
   ) : (
     <Auth token={this.updateToken} />
   )
@@ -57,8 +49,8 @@ protectedViews = () => {
   render() {
     return (
       <div className="App">
-       <h1 className='text-green-500'>Caster</h1>
-       <Navbar logout={this.clearToken} token={this.updateToken} />
+       {/* <h1 className='text-green-500'>Caster</h1> */}
+       <Sitebar logout={this.clearToken} token={this.state.token} />
        {this.protectedViews()}
       </div>
     )

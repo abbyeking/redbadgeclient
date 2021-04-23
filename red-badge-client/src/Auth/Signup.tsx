@@ -22,7 +22,7 @@ export default class Signup extends Component<acceptedProps, valueTypes> {
 handleSubmit = (event: any)  => {
     event.preventDefault()
     console.log(this.state)
-    fetch("http://localhost:3000/user/signup", {
+    fetch("http://localhost:3000/user/register", {
         method: "POST",
         body: JSON.stringify({
           user: {email: this.state.email,

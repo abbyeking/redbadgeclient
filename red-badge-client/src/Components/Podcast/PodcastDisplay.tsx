@@ -24,7 +24,7 @@ const PodcastDisplay = ({results}: IProps) => {
               {result.images.length > 1 ? (
                 <CardImg
                   alt="article"
-                  src={`https://www.nytimes.com/${result.images[1].url}`}
+                  src={`https://api.spotify.com/v1/search/${result.images[1].url}`}
                 />
               ) : (
                 ""

@@ -19,19 +19,20 @@ export default class Podcast extends React.Component<{}, IState> {
     this.handleChange = this.handleChange.bind(this);
     }
 
-podcastFetch = async () => {
-    let base_url: string = 'https://api.spotify.com/v1/episodes';
-    const key: string = 'BQCd0Udc9IH7dUklzdGAIDAcLUqE-UTMS00KGtKwxxBBBqgEsFX-Pe51HtdmE-I3oabcdct8-2cijJ8MrBEfah43Tc6pC-79g8f3erUP-I14YJTeSGhZtaKNPS4sVBHrJ0o6E02KW3wOq5VH0uwV'
-    let url: string = `${base_url}?api-key=${key}&q=${this.state.searchTerm}`
-
-   console.log(url);
-
-    const response = await fetch (url);
-    const data = await response.json();
-    this.setState ({
-        results: data.response.docs,
+podcastFetch = () => {
+    let key:string = "BQBIAKTxpgNzF8rK7kpygRjx4ivHHDe3zHvTugNK5XCXYO1Ky3zrGBj4NhOaNjl3r47D_ADGXueq_Vbvw9AYQNvULYougiNVTBZfmR_6h5nJJyI03Gqc4Kr8arWP0JYyHAhAokc8UFydl00QlMhN"
+    fetch(`https://api.spotify.com/v1/search?q=${this.state.searchTerm}&type=show`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + key
+        }
     })
-};
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data)
+    })
+}
 
 handleSubmit (event: SyntheticEvent):void {
     event.preventDefault();
@@ -65,7 +66,7 @@ handleSubmit (event: SyntheticEvent):void {
                     </FormGroup>
                     <Button type="submit">Search</Button>
                 </Form>
-                {this.state.results.length > 0 ? (
+                {this.state.results  ? (
           <PodcastDisplay
             results={this.state.results}
           />
@@ -74,6 +75,7 @@ handleSubmit (event: SyntheticEvent):void {
         )
     }
 }
+
 
 
 
