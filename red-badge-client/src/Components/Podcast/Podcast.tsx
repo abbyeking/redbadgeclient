@@ -1,5 +1,6 @@
 import React, {Component, SyntheticEvent} from 'react'
-import { FormGroup, Label, Form, Button, Input } from "reactstrap";
+import { FormGroup, Label, Form, Button, Input, Card, CardImg, CardText, CardBody,
+    CardTitle, Row, Col} from "reactstrap";
 import PodcastDisplay from "./PodcastDisplay";
 import {IResult} from "./Interfaces";
 
@@ -70,11 +71,13 @@ handleSubmit (event: SyntheticEvent):void {
           <PodcastDisplay
             results={this.state.results}
           />
-        ) : null}
-            </div>
-        )
-    }
+          ) : null}
+          </div>
+      )
+  }
 }
+
+
 
 
 

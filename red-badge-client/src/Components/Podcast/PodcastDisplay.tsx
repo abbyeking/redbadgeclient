@@ -9,7 +9,9 @@ import {
   CardSubtitle,
   Button,
 } from "reactstrap";
+
 import React from "react";
+
 interface IProps{
   results: IResult[];
 }
@@ -17,7 +19,9 @@ const PodcastDisplay = ({results}: IProps) => {
   return (
     <div style={{ display: "flex", flexWrap: "wrap" }}>
       {results.map((result) => {
-        return (
+
+
+  return (
           <Card key={result._id} style={{ margin: "2em", width: "30%" }}>
             <CardBody>
               <CardTitle>{result.description.main}</CardTitle>
@@ -35,7 +39,7 @@ const PodcastDisplay = ({results}: IProps) => {
                 {result.name.length > 0 ? " Name: " : ""}
               </CardSubtitle>
               {result.name.map((Name: IName) => (
-                <CardText key={name.value}>{name.value}</CardText>
+                <CardText key={name}>{name}</CardText>
               ))}
               <a href={result.web_url}>
                 <Button>Listen</Button>
