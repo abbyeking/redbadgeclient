@@ -22,19 +22,18 @@ const PodcastDisplay = ({results}: IProps) => {
 
 
   return (
-          <Card key={result._id} style={{ margin: "2em", width: "30%" }}>
+          <Card key={result.id} style={{ margin: "2em", width: "30%" }}>
             <CardBody>
-              <CardTitle>{result.description.main}</CardTitle>
-              {result.images.length > 1 ? (
+              <CardTitle>{result.shows.items.name}</CardTitle>
+              {result.shows.images.length > 1 ? (
                 <CardImg
-                  alt="article"
+                  alt="shows"
                   src={`https://api.spotify.com/v1/search/${result.images[1].url}`}
                 />
               ) : (
                 ""
               )}
               <CardSubtitle>
-                {/* {result.snippet} */}
                 <br />
                 {result.name.length > 0 ? " Name: " : ""}
               </CardSubtitle>

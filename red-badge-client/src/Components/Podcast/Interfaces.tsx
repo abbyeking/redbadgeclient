@@ -1,9 +1,10 @@
 export interface IResult {
-    _id: string,
+    shows: any;
+    id: string,
     description: IDescription,
     images:IImages[],
     name: IName[],
-    web_url:string
+    web_url:string,
 }
 
 interface IDescription{
