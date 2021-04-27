@@ -1,5 +1,5 @@
 export interface IResult {
-    shows: any;
+    shows: any,
     id: string,
     description: IDescription,
     images:IImages[],
@@ -7,8 +7,8 @@ export interface IResult {
     web_url:string,
 }
 
-interface IDescription{
-    main:string;
+interface IDescription {
+    main: string;
 }
 
 interface IImages{

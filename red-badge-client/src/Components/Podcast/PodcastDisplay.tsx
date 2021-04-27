@@ -16,6 +16,7 @@ interface IProps{
   results: IResult[];
 }
 const PodcastDisplay = ({results}: IProps) => {
+  console.log(results)
   return (
     <div style={{ display: "flex", flexWrap: "wrap" }}>
       {results.map((result) => {
@@ -24,24 +25,22 @@ const PodcastDisplay = ({results}: IProps) => {
   return (
           <Card key={result.id} style={{ margin: "2em", width: "30%" }}>
             <CardBody>
-              <CardTitle>{result.shows.items.name}</CardTitle>
-              {result.shows.images.length > 1 ? (
+              <CardTitle>{result.name}</CardTitle>
+              {result.images.length > 1 ? (
                 <CardImg
                   alt="shows"
-                  src={`https://api.spotify.com/v1/search/${result.images[1].url}`}
+                  src={result.images[0].url}
                 />
               ) : (
                 ""
               )}
               <CardSubtitle>
                 <br />
-                {result.name.length > 0 ? " Name: " : ""}
+                {result.description ? result.description : ""}
               </CardSubtitle>
-              {result.name.map((Name: IName) => (
-                <CardText key={name}>{name}</CardText>
-              ))}
               <a href={result.web_url}>
-                <Button>Listen</Button>
+                <br />
+                <Button>Save Show</Button>
               </a>
             </CardBody>
           </Card>
