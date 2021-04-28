@@ -14,7 +14,7 @@ import {
 type acceptedProps = {
     token: any
     logout: any
-    protectedViews: Function
+    // protectedViews: Function
 }
 
 export default class Sitebar extends Component<acceptedProps, {}> {

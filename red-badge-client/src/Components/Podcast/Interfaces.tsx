@@ -5,6 +5,7 @@ export interface IResult {
     images:IImages[],
     name: IName[],
     web_url:string,
+    publisher: string
 }
 
 interface IDescription {
