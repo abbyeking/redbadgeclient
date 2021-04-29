@@ -15,7 +15,7 @@ import React from "react";
 
 interface IProps {
   results: IResult[];
-  token: any
+  token: any;
 }
 
 type valueTypes = {
@@ -37,7 +37,7 @@ export default class PodcastDisplay extends Component<IProps, valueTypes> {
  handleSubmit = (event: any, podcast: any) => {
     event.preventDefault()
     console.log(podcast)
-    fetch("http://localhost:3000/podcast/create", {
+    fetch(`http://localhost:3000/podcast/create`, {
       method: "POST",
       body: JSON.stringify({
         name: podcast.name,
@@ -53,13 +53,9 @@ export default class PodcastDisplay extends Component<IProps, valueTypes> {
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
-        this.props.token(data.sessionToken)
       }).catch (error => console.log(error))
   }
 
-
-  // Display = ({results}: IProps) => {
-  //   console.log(results)
   render() {
     return (
       <div style={{ display: "flex", flexWrap: "wrap" }}>
