@@ -45,6 +45,9 @@ export default class Sitebar extends Component<acceptedProps, {}> {
                     <NavLink href="#">Podcast Search</NavLink>
                 </NavItem>
                 <NavItem>
+                    <NavLink href="#">Favorites</NavLink>
+                </NavItem>
+                <NavItem>
                     <NavLink href="#">Notes</NavLink>
                 </NavItem>
                 <NavItem>
