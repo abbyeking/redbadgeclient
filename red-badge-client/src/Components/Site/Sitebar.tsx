@@ -42,16 +42,16 @@ export default class Sitebar extends Component<acceptedProps, {}> {
                 <Nav>
                 <h1>Caster</h1>
                 <NavItem>
-                    <NavLink href="#">Podcast Search</NavLink>
+                    <NavLink href="#" to="/search">Podcast Search</NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink href="#">Favorites</NavLink>
+                    <NavLink href="#" to="favorites">Favorites</NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink href="#">Notes</NavLink>
+                    <NavLink href="#" to="notes">Notes</NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink disabled href="#">{this.logoutButton()}</NavLink>
+                    <NavLink>{this.logoutButton()}</NavLink>
                 </NavItem>
                 </Nav>
             </div>

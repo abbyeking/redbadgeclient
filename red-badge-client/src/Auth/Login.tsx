@@ -24,32 +24,34 @@ export default class Login extends Component<acceptedProps, valueTypes> {
         fetch('http://localhost:3000/user/login', {
             method: 'POST',
             body: JSON.stringify({
-                user:{email: this.state.email,
-                password: this.state.password}
+                user: {
+                    email: this.state.email,
+                    password: this.state.password
+                }
             }),
             headers: new Headers({
                 'Content-Type': 'application/json'
             })
         })
-        .then(res => res.json())
-        .then(data => {
-            this.props.token(data.sessionToken)
-            console.log(data);
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                this.props.token(data.token)
+            })
     }
 
     render() {
-        return(
+        return (
             <div>
                 <h4>Login</h4>
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <Label htmlFor="email">Email</Label>
-                        <Input name="email" type="text" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value})} />
+                        <Input name="email" type="text" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} />
                     </FormGroup>
                     <FormGroup>
                         <Label htmlFor="password">Password</Label>
-                        <Input name="password" type="password" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value})} />
+                        <Input name="password" type="password" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} />
                     </FormGroup>
                     <Button type="submit" color="primary">Login</Button>
                 </Form>

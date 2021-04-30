@@ -4,6 +4,14 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import Auth from "./Auth/Auth"
 import Sitebar from './Components/Site/Sitebar'
 import Podcast from './Components/Podcast/Podcast'
+import PodcastFavorites from './Components/Podcast/PodcastFavorites'
+import {
+  BrowserRouter as Router,
+  Link,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 
 type valueTypes = {
   token: any
@@ -49,9 +57,17 @@ protectedViews = () => {
   render() {
     return (
       <div className="App">
-       {/* <h1 className='text-green-500'>Caster</h1> */}
+      <Router>
        <Sitebar logout={this.clearToken} token={this.state.token} />
        {this.protectedViews()}
+
+          {/* <Route exact path="/favorites">
+            <PodcastFavorites token={sessionToken} />
+          </Route> */}
+          <Route exact path="/search">
+            <Podcast token={this.state.token} />
+          </Route>
+          </Router>
       </div>
     )
   }

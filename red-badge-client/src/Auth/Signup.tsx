@@ -19,42 +19,44 @@ export default class Signup extends Component<acceptedProps, valueTypes> {
         }
     }
 
-handleSubmit = (event: any)  => {
-    event.preventDefault()
-    console.log(this.state)
-    fetch("http://localhost:3000/user/register", {
-        method: "POST",
-        body: JSON.stringify({
-          user: {email: this.state.email,
-          password: this.state.password}
-        }),
-        headers: new Headers({
-            "Content-Type": "application/json"
+    handleSubmit = (event: any) => {
+        event.preventDefault()
+        console.log(this.state)
+        fetch("http://localhost:3000/user/register", {
+            method: "POST",
+            body: JSON.stringify({
+                user: {
+                    email: this.state.email,
+                    password: this.state.password
+                }
+            }),
+            headers: new Headers({
+                "Content-Type": "application/json"
+            })
         })
-    })
-    .then((res) => res.json())
-    .then((data) => {
-        console.log(data)
-        this.props.token(data.sessionToken)
-    })
-}
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data)
+                this.props.token(data.sessionToken)
+            })
+    }
 
     render() {
-        return(
+        return (
             <div>
                 <h4>Register</h4>
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <Label htmlFor="email">Email</Label>
-                        <Input name="email" type="text" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value})} />
+                        <Input name="email" type="text" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} />
                     </FormGroup>
                     <FormGroup>
                         <Label htmlFor="password">Password</Label>
-                        <Input name="password" type="password" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value})} />
+                        <Input name="password" type="password" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} />
                     </FormGroup>
                     <Button type="submit" color="primary">Register</Button>
                 </Form>
             </div>
         )
     }
-  }
+}

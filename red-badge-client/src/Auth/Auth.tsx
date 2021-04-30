@@ -3,15 +3,14 @@ import Login from "./Login"
 import Signup from "./Signup"
 import { Button } from 'reactstrap'
 
+
 type acceptedProps = {
-    token: any
+    token: (any: string | null) => void
 }
 
 type valueTypes = {
     login: boolean;
     setLogin: boolean;
-    firstName: string;
-    lastName: string;
     email: string;
     password: string
 }
@@ -22,8 +21,6 @@ export default class Auth extends Component<acceptedProps, valueTypes> {
         this.state = {
             login: true,
             setLogin: false,
-            firstName: "",
-            lastName: "",
             email: "",
             password: ""
         }
@@ -41,8 +38,6 @@ export default class Auth extends Component<acceptedProps, valueTypes> {
         event.preventDefault()
         this.setState({
             login: !this.state.login,
-            firstName: "",
-            lastName: "",
             email: "",
             password: ""
         })
@@ -52,9 +47,8 @@ export default class Auth extends Component<acceptedProps, valueTypes> {
         return (
             <div>
                 {this.authTernary()}
-                <Button onClick={this.loginToggle}>Toggle</Button>
+                <Button onClick={this.loginToggle}>Already a user?</Button>
             </div>
-
         )
     }
   }
