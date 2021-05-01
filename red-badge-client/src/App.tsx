@@ -4,11 +4,10 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import Auth from "./Auth/Auth"
 import Sitebar from './Components/Site/Sitebar'
 import Podcast from './Components/Podcast/Podcast'
-import Notes from './Components/Notes/Notes'
+import Notes from './Components/Notes/notes'
 import PodcastFavorites from './Components/Podcast/PodcastFavorites'
 import {
   BrowserRouter as Router,
-  Link,
   Switch,
   Route,
   Redirect,
@@ -28,11 +27,12 @@ class App extends Component<{}, valueTypes> {
 }
 
 componentDidMount() {
-  if(localStorage.getItem("sessionToken")) {
+  const localToken = (localStorage.getItem("sessionToken"))
+  if(localToken) {
     this.setState({
-      token: localStorage.getItem("sessionToken")
+      token: localToken
     })
-  }
+  } console.log(localToken)
 }
 
 updateToken = (newToken: any) => {
@@ -41,7 +41,7 @@ updateToken = (newToken: any) => {
   console.log("is this updating the token", this.state.token)
 }
 
-clearToken = () => {
+clearToken (){
   localStorage.clear();
   this.setState({ token: '' })
   console.log('token cleared')
@@ -59,11 +59,11 @@ clearToken = () => {
     return (
       <div className="App">
       <Router>
-       <Sitebar logout={this.clearToken} token={this.state.token} />
+       <Sitebar logout={this.clearToken.bind(this)} token={this.state.token} />
        {/* {this.protectedViews()} */}
         <Switch>
           <Route exact path="/">
-            {this.state.token === localStorage.getItem("token") ? (
+            {this.state.token === localStorage.getItem("sessionToken") ? (
               <Redirect to="/search" />
             ) : (
               <Auth token={this.updateToken} />

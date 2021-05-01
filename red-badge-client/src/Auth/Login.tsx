@@ -1,5 +1,13 @@
 import React, { Component } from "react"
 import { FormGroup, Label, Form, Button, Input } from "reactstrap"
+import PodcastFavorites from '../Components/Podcast/PodcastFavorites';
+import {
+    BrowserRouter as Router,
+    Link,
+    Switch,
+    Route,
+    Redirect,
+} from "react-router-dom";
 
 type acceptedProps = {
     token: any
@@ -36,6 +44,7 @@ export default class Login extends Component<acceptedProps, valueTypes> {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                // this.setState({userId:data.user.id})
                 this.props.token(data.token)
             })
     }
@@ -55,6 +64,11 @@ export default class Login extends Component<acceptedProps, valueTypes> {
                     </FormGroup>
                     <Button type="submit" color="primary">Login</Button>
                 </Form>
+                {/* <Switch>
+                <Route exact path="/savedshows">
+                    <PodcastFavorites token={this.props.token} userId={this.state.userId} />
+                </Route>
+                </Switch> */}
             </div>
         )
     }

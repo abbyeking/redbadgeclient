@@ -9,6 +9,7 @@ import {
     NavItem,
     NavLink,
     NavbarText,
+    Button
   } from 'reactstrap'
 
 type acceptedProps = {
@@ -51,7 +52,7 @@ export default class Sitebar extends Component<acceptedProps, {}> {
                     <NavLink href="/notes">Notes</NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink>{this.logoutButton()}</NavLink>
+                    <Button onClick={this.props.logout}>Logout</Button>
                 </NavItem>
                 </Nav>
             </div>
