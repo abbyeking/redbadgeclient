@@ -6,7 +6,10 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
-  Button
+  Button,
+  FormGroup,
+  Label,
+  Input
 } from "reactstrap";
 
 type acceptedProps = {
@@ -15,7 +18,7 @@ type acceptedProps = {
 
 type valueTypes = {
   publisher: string;
-  results:  any[];
+  results: any[];
 }
 
 
@@ -28,25 +31,25 @@ export class PodcastFavorites extends Component<acceptedProps, valueTypes> {
     }
   }
 
-componentDidMount () {
-  this.handleSubmit()
-}
+  componentDidMount() {
+    this.handleSubmit()
+  }
 
 handleSubmit = () => {
-  console.log(this.props.token)
-  if (true){
-    fetch(`http://localhost:3000/podcast/my`, {
-      method: "GET",
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Authorization: this.props.token || (localStorage.getItem('sessionToken') as string)
+    console.log(this.props.token)
+    if (true) {
+      fetch(`http://localhost:3000/podcast/my`, {
+        method: "GET",
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          Authorization: this.props.token || (localStorage.getItem('sessionToken') as string)
+        })
       })
-    })
-      .then((res) => res.json(),)
-      .then((logData) => {
-        console.log("this is the data we want", logData)
-        this.setState({results: logData.podcasts})
-      }).catch(error => console.log(error))
+        .then((res) => res.json(),)
+        .then((logData) => {
+          console.log("this is the data we want", logData)
+          this.setState({ results: logData.podcasts })
+        }).catch(error => console.log(error))
     }
   }
 
@@ -67,7 +70,7 @@ handleSubmit = () => {
   }
 
 
-  deletePodcast = (id:any) => {
+  deletePodcast = (id: any) => {
     fetch(`http://localhost:3000/podcast/${id}`, {
       method: "DELETE",
       headers: new Headers({
@@ -107,15 +110,20 @@ handleSubmit = () => {
                     <br />
                     {result.publisher ? result.publisher : ""}
                     <br />
-                    <input style={{margin:"0 0 .5rem"}} onChange={(e) => this.setState({publisher: e.target.value})}></input>
+                    <input style={{ margin: "0 0 .5rem" }} onChange={(e) => this.setState({ publisher: e.target.value })}></input>
                     <br />
-                    <Button onClick={() => {this.updatePodcast(result.id)}}>Update Publishing Company</Button>
-                    <br />
-                    <br />
-                    {result.description ? result.description : ""}
+                    <Button onClick={() => { this.updatePodcast(result.id) }}>Update Publishing Company</Button>
+                    {/* {result.description ? result.description : ""} */}
                     <br />
                     <br />
-                    <Button onClick={() => {this.deletePodcast(result.id)}}>Delete</Button>
+                    <Button onClick={() => { this.deletePodcast(result.id) }}>Delete Show</Button>
+                    <br />
+                    <br />
+                    <FormGroup>
+                      <Label for="exampleText">Add Notes</Label>
+                      <Input type="textarea" name="text" id="exampleText" />
+                    </FormGroup>
+                    <Button>Save Notes</Button>
                   </CardSubtitle>
                 </CardBody>
               </Card>
