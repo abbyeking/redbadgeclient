@@ -31,7 +31,7 @@ export class PodcastFavorites extends Component<acceptedProps, valueTypes> {
 componentDidMount () {
   this.handleSubmit()
 }
-  
+
 handleSubmit = () => {
   console.log(this.props.token)
   if (true){
@@ -51,8 +51,7 @@ handleSubmit = () => {
   }
 
 
-
-  updatePodcast = (id: any) => {
+  updatePodcast = (id: number) => {
     fetch(`http://localhost:3000/podcast/${id}`, {
       method: "PUT",
       headers: new Headers({
@@ -63,12 +62,12 @@ handleSubmit = () => {
         publisher: this.state.publisher,
       })
     }).then(() => {
-      this.handleSubmit
+      this.handleSubmit()
     })
   }
 
 
-  deletePodcast = (id: any) => {
+  deletePodcast = (id:any) => {
     fetch(`http://localhost:3000/podcast/${id}`, {
       method: "DELETE",
       headers: new Headers({
@@ -108,12 +107,15 @@ handleSubmit = () => {
                     <br />
                     {result.publisher ? result.publisher : ""}
                     <br />
-                    <input style={{margin:"0 0 .5rem"}}></input>
+                    <input style={{margin:"0 0 .5rem"}} onChange={(e) => this.setState({publisher: e.target.value})}></input>
                     <br />
-                    <Button>Update Publishing Company</Button>
+                    <Button onClick={() => {this.updatePodcast(result.id)}}>Update Publishing Company</Button>
                     <br />
                     <br />
                     {result.description ? result.description : ""}
+                    <br />
+                    <br />
+                    <Button onClick={() => {this.deletePodcast(result.id)}}>Delete</Button>
                   </CardSubtitle>
                 </CardBody>
               </Card>
