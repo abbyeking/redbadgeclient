@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import Auth from "./Auth/Auth"
 import Sitebar from './Components/Site/Sitebar'
 import Podcast from './Components/Podcast/Podcast'
+import Notes from './Components/Notes/Notes'
 import PodcastFavorites from './Components/Podcast/PodcastFavorites'
 import {
   BrowserRouter as Router,
@@ -14,7 +15,7 @@ import {
 } from "react-router-dom";
 
 type valueTypes = {
-  token: any
+  token: any,
 }
 
 
@@ -46,28 +47,39 @@ clearToken = () => {
   console.log('token cleared')
 }
 
-protectedViews = () => {
-  return this.state.token === localStorage.getItem("sessionToken") ? (
-    <Podcast token={this.state.token} />
-  ) : (
-    <Auth token={this.updateToken} />
-  )
-} 
+// protectedViews = () => {
+//   return this.state.token === localStorage.getItem("sessionToken") ? (
+//     <Podcast token={this.state.token} />
+//   ) : (
+//     <Auth token={this.updateToken} />
+//   )
+// } 
 
   render() {
     return (
       <div className="App">
       <Router>
        <Sitebar logout={this.clearToken} token={this.state.token} />
-       {this.protectedViews()}
-
-          {/* <Route exact path="/favorites">
-            <PodcastFavorites token={sessionToken} />
-          </Route> */}
+       {/* {this.protectedViews()} */}
+        <Switch>
+          <Route exact path="/">
+            {this.state.token === localStorage.getItem("token") ? (
+              <Redirect to="/search" />
+            ) : (
+              <Auth token={this.updateToken} />
+            )}
+          </Route>
+          <Route exact path="/savedshows">
+            <PodcastFavorites token={this.state.token} />
+          </Route>
           <Route exact path="/search">
             <Podcast token={this.state.token} />
           </Route>
-          </Router>
+          <Route exact path="/notes">
+            <Notes token={this.state.token} />
+          </Route>
+        </Switch>
+      </Router>
       </div>
     )
   }

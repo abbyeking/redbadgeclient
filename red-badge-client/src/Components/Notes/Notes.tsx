@@ -17,7 +17,7 @@ type valueTypes = {
 }
 
 
-export class PodcastFavorites extends Component<acceptedProps, valueTypes> {
+export class Notes extends Component<acceptedProps, valueTypes> {
   constructor(props: acceptedProps) {
     super(props)
     this.state = {
@@ -40,35 +40,6 @@ export class PodcastFavorites extends Component<acceptedProps, valueTypes> {
   }
 
 
-  updatePodcast = (id: any) => {
-    fetch(`http://localhost:3000/podcast/${id}`, {
-      method: "PUT",
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Authorization: this.props.token
-      }),
-      body: JSON.stringify({
-        publisher: this.state.publisher,
-      })
-    }).then(() => {
-      this.handleSubmit
-    })
-  }
-
-
-  deletePodcast = (id: any) => {
-    fetch(`http://localhost:3000/podcast/${id}`, {
-      method: "DELETE",
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Authorization: this.props.token
-      })
-    })
-      .then(() => {
-        this.handleSubmit
-      })
-  }
-
 
   render() {
     return (
@@ -79,4 +50,4 @@ export class PodcastFavorites extends Component<acceptedProps, valueTypes> {
 
 
 
-export default PodcastFavorites
+export default Notes
