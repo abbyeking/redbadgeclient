@@ -11,6 +11,7 @@ import {
   Label,
   Input
 } from "reactstrap";
+import PodcastFavoritesCard from './PodcastFavoritesCard';
 
 type acceptedProps = {
   token: string;
@@ -19,6 +20,7 @@ type acceptedProps = {
 type valueTypes = {
   publisher: string;
   results: any[];
+  notes: string;
 }
 
 
@@ -27,6 +29,7 @@ export class PodcastFavorites extends Component<acceptedProps, valueTypes> {
     super(props)
     this.state = {
       publisher: "",
+      notes: "",
       results: []
     }
   }
@@ -35,7 +38,7 @@ export class PodcastFavorites extends Component<acceptedProps, valueTypes> {
     this.handleSubmit()
   }
 
-handleSubmit = () => {
+  handleSubmit = () => {
     console.log(this.props.token)
     if (true) {
       fetch(`http://localhost:3000/podcast/my`, {
@@ -83,54 +86,40 @@ handleSubmit = () => {
       })
   }
 
+  // addNotes = ( id: number, podcast:any) => {
+  //   // event.preventDefault()
+  //   fetch(`http://localhost:3000/notes/${id}`, {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       note: podcast.note
+  //     }),
+  //     headers: new Headers({
+  //       "Content-Type": "application/json",
+  //       Authorization: this.props.token
+  //     })
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data)
+  //     }).catch (error => console.log(error))
+  // }
+
 
   render() {
     return (
-      <div>
+      <>
         <h1>Saved Searches</h1>
         <br />
         <br />
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {this.state.results.map((result) => {
-
-
-            return (
-              <Card key={result.id} style={{ margin: "2em", width: "30%" }}>
-                <CardBody>
-                  <CardTitle>{result.name}</CardTitle>
-                  {result.images.length > 1 ? (
-                    <CardImg
-                      alt="shows"
-                      src={result.images}
-                    />
-                  ) : (
-                      ""
-                    )}
-                  <CardSubtitle>
-                    <br />
-                    {result.publisher ? result.publisher : ""}
-                    <br />
-                    <input style={{ margin: "0 0 .5rem" }} onChange={(e) => this.setState({ publisher: e.target.value })}></input>
-                    <br />
-                    <Button onClick={() => { this.updatePodcast(result.id) }}>Update Publishing Company</Button>
-                    {/* {result.description ? result.description : ""} */}
-                    <br />
-                    <br />
-                    <Button onClick={() => { this.deletePodcast(result.id) }}>Delete Show</Button>
-                    <br />
-                    <br />
-                    <FormGroup>
-                      <Label for="exampleText">Add Notes</Label>
-                      <Input type="textarea" name="text" id="exampleText" />
-                    </FormGroup>
-                    <Button>Save Notes</Button>
-                  </CardSubtitle>
-                </CardBody>
-              </Card>
-            );
-          })}
+          {this.state.results.map((result, index) => (
+            <PodcastFavoritesCard
+              token={this.props.token}
+              result={result}
+              index={index} />
+          ))}
         </div>
-      </div>
+      </>
     )
   }
 }

@@ -26,9 +26,9 @@ export class Notes extends Component<acceptedProps, valueTypes> {
     }
   }
 
-  handleSubmit = (event: any, id: any, notes: any) => {
+  addNotes = (event: any, id: any, notes: any) => {
     event.preventDefault()
-    fetch(`http://localhost:3000/notes/user/${id}`, {
+    fetch(`http://localhost:3000/notes/${id}`, {
       method: "POST",
       body: JSON.stringify({
         notes: notes
