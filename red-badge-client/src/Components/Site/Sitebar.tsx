@@ -1,21 +1,15 @@
 import React, { Component } from 'react'
 import { Link, Redirect, Route, Switch } from 'react-router-dom'
-
 import {
-    Collapse,
-    Navbar,
-    NavbarToggler,
     Nav,
     NavItem,
     NavLink,
-    NavbarText,
     Button
   } from 'reactstrap'
 
 type acceptedProps = {
     token: any
     logout: any
-    // protectedViews: Function
 }
 
 export default class Sitebar extends Component<acceptedProps, {}> {

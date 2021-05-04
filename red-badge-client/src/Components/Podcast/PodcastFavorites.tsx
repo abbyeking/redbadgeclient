@@ -1,16 +1,4 @@
 import React, { Component } from 'react';
-import { IResult } from "./Interfaces";
-import {
-  Card,
-  CardImg,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button,
-  FormGroup,
-  Label,
-  Input
-} from "reactstrap";
 import PodcastFavoritesCard from './PodcastFavoritesCard';
 
 type acceptedProps = {
@@ -38,7 +26,7 @@ export class PodcastFavorites extends Component<acceptedProps, valueTypes> {
     this.handleSubmit()
   }
 
-  handleSubmit = () => {
+handleSubmit = () => {
     console.log(this.props.token)
     if (true) {
       fetch(`http://localhost:3000/podcast/my`, {
@@ -85,24 +73,6 @@ export class PodcastFavorites extends Component<acceptedProps, valueTypes> {
         this.handleSubmit
       })
   }
-
-  // addNotes = ( id: number, podcast:any) => {
-  //   // event.preventDefault()
-  //   fetch(`http://localhost:3000/notes/${id}`, {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       note: podcast.note
-  //     }),
-  //     headers: new Headers({
-  //       "Content-Type": "application/json",
-  //       Authorization: this.props.token
-  //     })
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data)
-  //     }).catch (error => console.log(error))
-  // }
 
 
   render() {

@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import Auth from "./Auth/Auth"
 import Sitebar from './Components/Site/Sitebar'
 import Podcast from './Components/Podcast/Podcast'
-import Notes from './Components/Notes/notes'
+import Notes from './Components/Notes/Notes'
 import PodcastFavorites from './Components/Podcast/PodcastFavorites'
 import {
   BrowserRouter as Router,

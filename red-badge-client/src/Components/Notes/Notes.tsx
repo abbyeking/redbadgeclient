@@ -10,6 +10,8 @@ import {
 
 type acceptedProps = {
   token: string;
+  result: string;
+  index: any;
 }
 
 type valueTypes = {
@@ -26,28 +28,59 @@ export class Notes extends Component<acceptedProps, valueTypes> {
     }
   }
 
-  addNotes = (event: any, id: any, notes: any) => {
-    event.preventDefault()
-    fetch(`http://localhost:3000/notes/${id}`, {
-      method: "POST",
-      body: JSON.stringify({
-        notes: notes
-      }),
+  handleSubmit = (pid: any) => {
+    console.log(this.props.token)
+    if (true) {
+      fetch(`http://localhost:3000/podcast/${pid}`, {
+        method: "GET",
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          Authorization: this.props.token || (localStorage.getItem('sessionToken') as string)
+        })
+      })
+        .then((res) => res.json(),)
+        .then((logData) => {
+          console.log("this is the data we want", logData)
+          this.setState({ results: logData.podcasts })
+        }).catch(error => console.log(error))
+    }
+  }
+
+
+  updateNotes = (id: number) => {
+    fetch(`http://localhost:3000/podcast/${id}`, {
+      method: "PUT",
       headers: new Headers({
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
+        Authorization: this.props.token
+      }),
+      body: JSON.stringify({
+        notes: this.state.notes,
+      })
+    }).then(() => {
+      this.handleSubmit
+    })
+  }
+
+
+  deleteNotes = (id: any) => {
+    fetch(`http://localhost:3000/podcast/${id}`, {
+      method: "DELETE",
+      headers: new Headers({
+        'Content-Type': 'application/json',
         Authorization: this.props.token
       })
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-      }).catch (error => console.log(error))
+      .then(() => {
+        this.handleSubmit
+      })
   }
 
 
   render() {
     return (
       <div>
+        <h1>Notes</h1>
            <div style={{ display: "flex", flexWrap: "wrap" }}>
         {this.state.results.map((result) => {
 
@@ -66,6 +99,7 @@ export class Notes extends Component<acceptedProps, valueTypes> {
                   )}
                 <CardSubtitle>
                   <br />
+                  {result.notes ? result.notes : ""}
                   <br />
                   <br />
                 </CardSubtitle>
