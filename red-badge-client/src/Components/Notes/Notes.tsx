@@ -6,12 +6,12 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
+  Button
 } from "reactstrap";
 
 type acceptedProps = {
   token: string;
-  result: string;
-  index: any;
+  // result: string;
 }
 
 type valueTypes = {
@@ -24,14 +24,18 @@ export class Notes extends Component<acceptedProps, valueTypes> {
     super(props)
     this.state = {
       notes: "",
-      results: []
+      results: [],
     }
   }
 
-  handleSubmit = (pid: any) => {
+  componentDidMount() {
+    this.handleSubmit()
+  }
+
+  handleSubmit = () => {
     console.log(this.props.token)
     if (true) {
-      fetch(`http://localhost:3000/podcast/${pid}`, {
+      fetch(`http://localhost:3000/notes/user`, {
         method: "GET",
         headers: new Headers({
           'Content-Type': 'application/json',
@@ -40,12 +44,12 @@ export class Notes extends Component<acceptedProps, valueTypes> {
       })
         .then((res) => res.json(),)
         .then((logData) => {
+          console.log("hello")
           console.log("this is the data we want", logData)
-          this.setState({ results: logData.podcasts })
+          this.setState({ results: logData.notes })
         }).catch(error => console.log(error))
     }
   }
-
 
   updateNotes = (id: number) => {
     fetch(`http://localhost:3000/podcast/${id}`, {
@@ -82,31 +86,19 @@ export class Notes extends Component<acceptedProps, valueTypes> {
       <div>
         <h1>Notes</h1>
            <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {this.state.results.map((result) => {
+        {this.state.results?.map((result) => {
 
 
           return (
             <Card key={result.id} style={{ margin: "2em", width: "30%" }}>
               <CardBody>
-                <CardTitle>{result.name}</CardTitle>
-                {result.images.length > 1 ? (
-                  <CardImg
-                    alt="shows"
-                    src={result.images}
-                  />
-                ) : (
-                    ""
-                  )}
-                <CardSubtitle>
-                  <br />
-                  {result.notes ? result.notes : ""}
-                  <br />
-                  <br />
-                </CardSubtitle>
+                <CardTitle>{result.podcast.name}</CardTitle>
+                <p>{result.note}</p>
               </CardBody>
             </Card>
           );
         })}
+        {/* <Button onClick={(pid:any ) => this.handleSubmit(pid)}>Button</Button> */}
       </div>
       </div>
     )
