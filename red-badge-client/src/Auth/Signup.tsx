@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { FormGroup, Label, Form, Button, Input } from "reactstrap"
+import { FormGroup, Label, Form, Button, Input, Col, Row } from "reactstrap"
 
 type acceptedProps = {
     token: any
@@ -44,17 +44,23 @@ export default class Signup extends Component<acceptedProps, valueTypes> {
     render() {
         return (
             <div>
+                <br />
                 <h4>Register</h4>
+                <br />
                 <Form onSubmit={this.handleSubmit}>
+                <Row className="justify-content-md-center">
+                    <Col lg="5">
                     <FormGroup>
                         <Label htmlFor="email">Email</Label>
                         <Input name="email" type="text" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} />
                     </FormGroup>
                     <FormGroup>
                         <Label htmlFor="password">Password</Label>
-                        <Input name="password" type="password" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} />
+                        <Input name="password" type="password"  value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} />
                     </FormGroup>
                     <Button type="submit" color="primary">Register</Button>
+                    </Col>
+                    </Row>
                 </Form>
             </div>
         )

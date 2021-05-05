@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Login from "./Login"
 import Signup from "./Signup"
 import { Button } from 'reactstrap'
+import { Link } from 'react-router-dom'
 
 
 type acceptedProps = {
@@ -27,15 +28,12 @@ export default class Auth extends Component<acceptedProps, valueTypes> {
     }
 
     authTernary = () => {
-        return this.state.login ? (
-            <Signup token={this.props.token} />
-        ) : (
-            <Login token={this.props.token} />
-        )
-    }
+        return this.state.login 
+        ? <Login token={this.props.token} />
+        : <Signup token={this.props.token} />
+      }
 
-    loginToggle = (event: any) => {
-        event.preventDefault()
+    loginToggle = () => {
         this.setState({
             login: !this.state.login,
             email: "",
@@ -47,8 +45,14 @@ export default class Auth extends Component<acceptedProps, valueTypes> {
         return (
             <div>
                 {this.authTernary()}
-                <Button onClick={this.loginToggle}>Already a user?</Button>
+                <Link
+                    to=''
+                    className='no-underline text-black hover:text-black'
+                    onClick={this.loginToggle}
+                >
+                    Don't have an account?
+            </Link>
             </div>
         )
     }
-  }
+}

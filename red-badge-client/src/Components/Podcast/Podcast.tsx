@@ -24,7 +24,7 @@ export default class Podcast extends React.Component<IProps, IState> {
     }
 
 podcastFetch = () => {
-    let key:string = "BQAHCBgpLNUmEwmwBoHWpe3JngC3-x-2DNQb4HUqaQpDASr-jhDH3DQ5R1bW6IvWLf96yUZBKg_zEUZH6b2wn-r3WOX38wIvNpo0twWWMywlisRvTXvnpElV81Ff8euLbfHHLZ95lURCRRMEXZ9-"
+    let key:string = "BQDUzzhnLOD8eeteW_KT4JtabvSw-71SH4cOnL2Dn1EB6izmsTKpxq6z3EarIqvoY3AO0XxSORo6V5Wv6wpNtoAohc-hmIdxoEZKgQe418KGRbtEB9CBYThrC8Z-UErK47bf432hIsi-Y3JNToGT"
     fetch(`https://api.spotify.com/v1/search?q=${this.state.searchTerm}&type=show`, {
         method: "GET",
         headers: {
@@ -60,8 +60,14 @@ handleSubmit (event: SyntheticEvent):void {
         // console.log(this.state.results)
         return (
             <div>
+                <br />
+                <br />
+                <br />
+                <br />
                 <h1>Search show by genre</h1>
                 <Form onSubmit={this.handleSubmit}>
+                <Row className="justify-content-md-center">
+                    <Col lg="5">
                     <FormGroup>
                         <Label for="searchTerm"></Label>
                         <Input 
@@ -73,6 +79,8 @@ handleSubmit (event: SyntheticEvent):void {
                         />
                     </FormGroup>
                     <Button type="submit">Search</Button>
+                    </Col>
+                    </Row>
                 </Form>
                 
                 {this.state.results  ? (

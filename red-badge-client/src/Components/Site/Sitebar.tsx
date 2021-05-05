@@ -41,10 +41,17 @@ export default class Sitebar extends Component<acceptedProps, valueTypes> {
             )
     }
 
+    navbarStyles = {
+        position: 'fixed',
+        width: '100%',
+        zIndex: '100'
+    }
+
     render() {
         return (
-            <div>
-                <Navbar color="dark" sticky="top" expand="lg">
+            <div style ={{...this.navbarStyles}}>
+
+                <Navbar color="dark" sticky="top" expand="lg" position="fixed">
                     <NavbarBrand id="caster" href="/">Caster</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar ></Collapse>
