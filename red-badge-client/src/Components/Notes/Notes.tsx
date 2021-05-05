@@ -52,7 +52,7 @@ export class Notes extends Component<acceptedProps, valueTypes> {
   }
 
   updateNotes = (id: number) => {
-    fetch(`http://localhost:3000/podcast/${id}`, {
+    fetch(`http://localhost:3000/notes/${id}`, {
       method: "PUT",
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -62,13 +62,13 @@ export class Notes extends Component<acceptedProps, valueTypes> {
         notes: this.state.notes,
       })
     }).then(() => {
-      this.handleSubmit
+      this.handleSubmit()
     })
   }
 
 
   deleteNotes = (id: any) => {
-    fetch(`http://localhost:3000/podcast/${id}`, {
+    fetch(`http://localhost:3000/notes/${id}`, {
       method: "DELETE",
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -92,13 +92,19 @@ export class Notes extends Component<acceptedProps, valueTypes> {
           return (
             <Card key={result.id} style={{ margin: "2em", width: "30%" }}>
               <CardBody>
-                <CardTitle>{result.podcast.name}</CardTitle>
+                <CardTitle>{result.podcast.publisher}: </CardTitle>
                 <p>{result.note}</p>
+                <input style={{ margin: "0 0 .5rem" }} onChange={(e) => this.setState({ notes: e.target.value })}></input>
+                <br />
+                <Button onClick={() => { this.updateNotes(result.id) }}>Update Note</Button>
+                <br />
+                <br />
+                <Button onClick={() => { this.deleteNotes(result.id) }}>Delete Note</Button>
               </CardBody>
             </Card>
           );
         })}
-        {/* <Button onClick={(pid:any ) => this.handleSubmit(pid)}>Button</Button> */}
+        
       </div>
       </div>
     )

@@ -41,6 +41,7 @@ updateToken = (newToken: any) => {
   console.log("is this updating the token", this.state.token)
 }
 
+
 clearToken (){
   localStorage.clear();
   this.setState({ token: '' })
