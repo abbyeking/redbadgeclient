@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IResult } from "./Interfaces";
+import "./PodcastFavoritesCard.css"
 import {
   Card,
   CardImg,
@@ -126,17 +126,16 @@ handleSubmit = () => {
                     <br />
                     <input style={{ margin: "0 0 .5rem" }} onChange={(e) => this.setState({ publisher: e.target.value })}></input>
                     <br />
-                    <Button onClick={() => { this.updatePodcast(this.props.result.id) }}>Update Publishing Company</Button>
+                    <Button onClick={() => { this.updatePodcast(this.props.result.id) }}>Update Publisher</Button>
                     <br />
                     <br />
-                    <Button onClick={() => { this.deletePodcast(this.props.result.id) }}>Delete Show</Button>
-                    <br />
-                    <br />
+                    {/* <Button onClick={() => { this.deletePodcast(this.props.result.id) }}>Delete Show</Button> */}
                     <FormGroup>
                       <Label for="exampleText">Add Notes</Label>
                       <Input type="textarea" name="text" id="exampleText" value={this.state.notes} onChange={(e) => this.setState({notes: e.target.value})} />
                     </FormGroup>
-                    <Button onClick= {() => { this.addNotes(this.props.result.id)}}>Save Notes</Button>
+                    <Button onClick= {() => { this.addNotes(this.props.result.id)}} className="buttonstyles" >Save Notes</Button>
+                    <Button onClick={() => { this.deletePodcast(this.props.result.id) }} className="buttonstyles">Delete Show</Button>
                   </CardSubtitle>
                 </CardBody>
               </Card>

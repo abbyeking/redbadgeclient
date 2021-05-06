@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
-import { IResult } from "../Podcast/Interfaces";
+import "./Notes.css"
 import {
   Card,
-  CardImg,
   CardBody,
   CardTitle,
-  CardSubtitle,
   Button
 } from "reactstrap";
 
 type acceptedProps = {
   token: string;
-  // result: string;
 }
 
 type valueTypes = {
@@ -96,10 +93,8 @@ export class Notes extends Component<acceptedProps, valueTypes> {
                 <p>{result.note}</p>
                 <input style={{ margin: "0 0 .5rem" }} onChange={(e) => this.setState({ notes: e.target.value })}></input>
                 <br />
-                <Button onClick={() => { this.updateNotes(result.id) }}>Update Note</Button>
-                <br />
-                <br />
-                <Button onClick={() => { this.deleteNotes(result.id) }}>Delete Note</Button>
+                <Button onClick={() => { this.updateNotes(result.id) }} className="button">Update Note</Button>
+                <Button onClick={() => { this.deleteNotes(result.id) }} className="button">Delete Note</Button>
               </CardBody>
             </Card>
           );

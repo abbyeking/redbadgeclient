@@ -48,20 +48,12 @@ clearToken (){
   console.log('token cleared')
 }
 
-// protectedViews = () => {
-//   return this.state.token === localStorage.getItem("sessionToken") ? (
-//     <Podcast token={this.state.token} />
-//   ) : (
-//     <Auth token={this.updateToken} />
-//   )
-// } 
-
   render() {
     return (
       <div className="App">
       <Router>
        <Sitebar logout={this.clearToken.bind(this)} token={this.state.token} />
-       {/* {this.protectedViews()} */}
+       <div id="switchdiv">
         <Switch>
           <Route exact path="/">
             {this.state.token === localStorage.getItem("sessionToken") ? (
@@ -80,8 +72,10 @@ clearToken (){
             <Notes token={this.state.token} />
           </Route>
         </Switch>
+        </div>
       </Router>
       </div>
+      
     )
   }
 }

@@ -11,6 +11,7 @@ import {
     NavbarBrand,
     NavbarText
 } from 'reactstrap'
+import "./Sitebar.css"
 
 type acceptedProps = {
     token: any
@@ -41,17 +42,11 @@ export default class Sitebar extends Component<acceptedProps, valueTypes> {
             )
     }
 
-    navbarStyles = {
-        position: 'fixed',
-        width: '100%',
-        zIndex: '100'
-    }
 
     render() {
         return (
-            <div style ={{...this.navbarStyles}}>
-
-                <Navbar color="dark" sticky="top" expand="lg" position="fixed">
+            <div className="sitebarstyles">
+                <Navbar color="dark" expand="lg">
                     <NavbarBrand id="caster" href="/">Caster</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar ></Collapse>
@@ -66,10 +61,9 @@ export default class Sitebar extends Component<acceptedProps, valueTypes> {
                             <NavLink href="/notes">Notes</NavLink>
                         </NavItem>
                         <NavItem>
-                            {/* <Button onClick={this.props.logout}>Logout */}
-                            <NavbarText>{this.logoutButton()}</NavbarText>
-                            <Link to="/"></Link>
-                            {/* </Button> */}
+                            <Link to="/">
+                            <NavbarText>{this.logoutButton()}</NavbarText> 
+                            </Link>
                         </NavItem>
                     </Nav>
                 </Navbar>
