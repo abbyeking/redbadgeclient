@@ -68,8 +68,10 @@ handleSubmit = () => {
       body: JSON.stringify({
         publisher: this.state.publisher,
       })
-    }).then(() => {
-      this.handleSubmit()
+    }).then((res) => res.json())
+    .then((data) => {
+        console.log(data)
+        this.handleSubmit()
     })
   }
 
@@ -81,10 +83,9 @@ handleSubmit = () => {
         'Content-Type': 'application/json',
         Authorization: this.props.token
       })
+    }).then(() => {
+      this.handleSubmit()
     })
-      .then(() => {
-        this.handleSubmit
-      })
   }
 
   addNotes = ( id: number) => {
@@ -129,7 +130,6 @@ handleSubmit = () => {
                     <Button onClick={() => { this.updatePodcast(this.props.result.id) }}>Update Publisher</Button>
                     <br />
                     <br />
-                    {/* <Button onClick={() => { this.deletePodcast(this.props.result.id) }}>Delete Show</Button> */}
                     <FormGroup>
                       <Label for="exampleText">Add Notes</Label>
                       <Input type="textarea" name="text" id="exampleText" value={this.state.notes} onChange={(e) => this.setState({notes: e.target.value})} />
