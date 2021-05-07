@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import Login from "./Login"
 import Signup from "./Signup"
-import { Button } from 'reactstrap'
+import { Row, Col } from 'reactstrap'
 import { Link } from 'react-router-dom'
+import "./AuthStyles.css"
 
 
 type acceptedProps = {
@@ -28,10 +29,10 @@ export default class Auth extends Component<acceptedProps, valueTypes> {
     }
 
     authTernary = () => {
-        return this.state.login 
-        ? <Login token={this.props.token} />
-        : <Signup token={this.props.token} />
-      }
+        return this.state.login
+            ? <Login token={this.props.token} />
+            : <Signup token={this.props.token} />
+    }
 
     loginToggle = () => {
         this.setState({
@@ -43,16 +44,22 @@ export default class Auth extends Component<acceptedProps, valueTypes> {
 
     render() {
         return (
-            <div>
-                {this.authTernary()}
-                <Link
-                    to=''
-                    className='no-underline text-black hover:text-black'
-                    onClick={this.loginToggle}
-                >
-                    Don't have an account?
+                <div className="authstyles">
+                    <div className="flex">
+                        {/* <Row className="d-flex justify-content-md-center">
+                    <Col lg="8"> */}
+                        {this.authTernary()}
+                        <Link
+                            to=''
+                            className='no-underline text-black hover:text-black'
+                            onClick={this.loginToggle}
+                        >
+                            Don't have an account?
             </Link>
-            </div>
+                        {/* </Col>
+                </Row> */}
+                    </div>
+                </div>
         )
     }
 }

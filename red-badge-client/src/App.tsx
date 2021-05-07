@@ -52,7 +52,9 @@ clearToken (){
     return (
       <div className="App">
       <Router>
+        {this.state.token && (
        <Sitebar logout={this.clearToken.bind(this)} token={this.state.token} />
+       )}
        <div id="switchdiv">
         <Switch>
           <Route exact path="/">

@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import "./Notes.css"
-import {
-  Card,
-  CardBody,
-  CardTitle,
-  Button
-} from "reactstrap";
+import "./Notes.css";
+import Note from "./Note";
 
 type acceptedProps = {
   token: string;
@@ -48,55 +43,21 @@ export class Notes extends Component<acceptedProps, valueTypes> {
     }
   }
 
-  updateNotes = (id: number) => {
-    fetch(`http://localhost:3000/notes/${id}`, {
-      method: "PUT",
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Authorization: this.props.token
-      }),
-      body: JSON.stringify({
-        notes: this.state.notes,
-      })
-    }).then(() => {
-      this.handleSubmit()
-    })
-  }
-
-
-  deleteNotes = (id: any) => {
-    fetch(`http://localhost:3000/notes/${id}`, {
-      method: "DELETE",
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Authorization: this.props.token
-      })
-    })
-      .then(() => {
-        this.handleSubmit
-      })
-  }
-
 
   render() {
     return (
       <div>
         <h1>Notes</h1>
            <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {this.state.results?.map((result) => {
-
+        {this.state.results?.sort((a,b) => {
+               return a.id - b.id
+             }).map((result) => {
 
           return (
-            <Card key={result.id} style={{ margin: "2em", width: "30%" }}>
-              <CardBody>
-                <CardTitle>{result.podcast.publisher}: </CardTitle>
-                <p>{result.note}</p>
-                <input style={{ margin: "0 0 .5rem" }} onChange={(e) => this.setState({ notes: e.target.value })}></input>
-                <br />
-                <Button onClick={() => { this.updateNotes(result.id) }} className="button">Update Note</Button>
-                <Button onClick={() => { this.deleteNotes(result.id) }} className="button">Delete Note</Button>
-              </CardBody>
-            </Card>
+            <Note 
+            handleSubmit={this.handleSubmit}
+            token={this.props.token}
+            result={result} />
           );
         })}
         
