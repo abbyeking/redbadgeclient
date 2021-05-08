@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./Notes.css";
 import Note from "./Note";
-import axios from "axios"
+
 
 type acceptedProps = {
   token: any;
@@ -10,6 +10,7 @@ type acceptedProps = {
 type valueTypes = {
   notes: string;
   results: any[];
+  loading: any;
 }
 
 export class Notes extends Component<acceptedProps, valueTypes> {
@@ -18,32 +19,47 @@ export class Notes extends Component<acceptedProps, valueTypes> {
     this.state = {
       notes: "",
       results: [],
+      loading: false
     }
     console.log(this.props.token)
   }
 
-
   handleSubmit = () => {
     console.log(this.props.token)
-    if (true) {
-      fetch(`http://localhost:3000/notes/user`, {
-        method: "GET",
-        headers: new Headers({
-          'Content-Type': 'application/json',
-          Authorization: this.props.token || (localStorage.getItem('sessionToken') as string)
-        })
+    fetch(`http://localhost:3000/notes/user`, {
+      method: "GET",
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Authorization: this.props.token || (localStorage.getItem('sessionToken') as string)
       })
-        .then((res) => res.json(),)
-        .then((logData) => {
-          console.log("hello")
-          console.log("this is the data we want", logData)
-          this.setState({ results: logData.notes })
-        }).catch(error => console.log(error))
-    }
+    })
+      .then((res) => res.json(),)
+      .then((logData) => {
+        console.log("hello")
+        console.log("this is the data we want", logData)
+        this.setState({ results: logData.notes })
+      })
+    this.setState({ loading: true })
   }
 
   componentDidMount() {
     this.handleSubmit()
+  }
+
+  test = () => {
+    this.state.results?.sort((a, b) => {
+      return a.id - b.id
+    }).map((result) => {
+      result.podcastId !== null ? (
+        <Note
+                handleSubmit={this.handleSubmit}
+                token={this.props.token}
+                loading={this.state.loading}
+                result={result} />
+      ) : (
+        <></>
+      )
+    })
   }
 
   render() {
@@ -53,15 +69,17 @@ export class Notes extends Component<acceptedProps, valueTypes> {
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {this.state.results?.sort((a, b) => {
             return a.id - b.id
-          }).map((result) => {
-
-            return (
+          }).map((result) => (
+            (result.podcastId === null) ? (
+            <></>
+            ) : (
               <Note
-                handleSubmit={this.handleSubmit}
-                token={this.props.token}
-                result={result} />
-            );
-          })}
+              handleSubmit={this.handleSubmit}
+              token={this.props.token}
+              loading={this.state.loading}
+              result={result} />
+              )
+          ))}
 
         </div>
       </div>

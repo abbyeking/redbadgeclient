@@ -24,7 +24,7 @@ export default class Podcast extends React.Component<IProps, IState> {
     }
 
 podcastFetch = () => {
-    let key:string = "BQConM51c-iC4IFWHyHSN8N5pTdqqRwc0-wT-5AFfz26pUe_9ZoWcIucY0CbTVzf0tnFFFELrXR_6DzMg8n5ip0GUQcGMWA6oNb9nKvB8snolvZLscBDbJQrWpptn0NAw2KBeF2q0iTBBtEa0Aji"
+    let key:string = "BQBAR4vJPLDTs7WzgupXq-9Sp3UmCihUIDjocq_hEIY9nsrgYDze4bPLjT7eWc-Ofkcot0lAi4uU3DnLZcLLjugviZjgtKrTaao3hu3N03Xxh3RwNmoJYUMQ9OaJIuiA6t97BonDVXG3uLRzVTFl"
     fetch(`https://api.spotify.com/v1/search?q=${this.state.searchTerm}&type=show`, {
         method: "GET",
         headers: {
