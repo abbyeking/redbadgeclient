@@ -1,6 +1,8 @@
 .authstyles{
     width: 800px;
-    border: 30px solid black;
+    border: 30px;
+    border-style: solid;
+    border-color: #343a40;
     padding: 50px;
     margin: auto;
 }
