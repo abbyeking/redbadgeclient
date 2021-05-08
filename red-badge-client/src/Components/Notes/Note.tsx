@@ -3,7 +3,8 @@ import {
     Card,
     CardBody,
     CardTitle,
-    Button
+    Button,
+    Input
 } from "reactstrap";
 
 type acceptedProps = {
@@ -64,7 +65,7 @@ render(){
             <CardBody>
                 <CardTitle>{this.props.result.podcast.publisher}: </CardTitle>
                     <p>{this.props.result.note}</p>
-                        <input style={{ margin: "0 0 .5rem" }} onChange={(e) => this.setState({ note: e.target.value })}></input>
+                        <Input type="textarea" style={{ margin: "0 0 .5rem" }} onChange={(e) => this.setState({ note: e.target.value })}></Input>
                     <br />
                     <Button onClick={() => {
                     console.log(this.props.result.id)
