@@ -4,7 +4,6 @@ import { Component } from "react"
 import {
   Card,
   CardImg,
-  CardText,
   CardBody,
   CardTitle,
   CardSubtitle,

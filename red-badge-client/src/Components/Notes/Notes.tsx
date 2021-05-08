@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import "./Notes.css";
 import Note from "./Note";
+import axios from "axios"
 
 type acceptedProps = {
-  token: string;
+  token: any;
 }
 
 type valueTypes = {
   notes: string;
-  results:  any[];
+  results: any[];
 }
 
 export class Notes extends Component<acceptedProps, valueTypes> {
@@ -18,11 +19,9 @@ export class Notes extends Component<acceptedProps, valueTypes> {
       notes: "",
       results: [],
     }
+    console.log(this.props.token)
   }
 
-  componentDidMount() {
-    this.handleSubmit()
-  }
 
   handleSubmit = () => {
     console.log(this.props.token)
@@ -43,30 +42,31 @@ export class Notes extends Component<acceptedProps, valueTypes> {
     }
   }
 
+  componentDidMount() {
+    this.handleSubmit()
+  }
 
   render() {
     return (
       <div>
         <h1>Notes</h1>
-           <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {this.state.results?.sort((a,b) => {
-               return a.id - b.id
-             }).map((result) => {
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {this.state.results?.sort((a, b) => {
+            return a.id - b.id
+          }).map((result) => {
 
-          return (
-            <Note 
-            handleSubmit={this.handleSubmit}
-            token={this.props.token}
-            result={result} />
-          );
-        })}
-        
-      </div>
+            return (
+              <Note
+                handleSubmit={this.handleSubmit}
+                token={this.props.token}
+                result={result} />
+            );
+          })}
+
+        </div>
       </div>
     )
   }
 }
-
-
 
 export default Notes

@@ -35,6 +35,8 @@ componentDidMount() {
   } console.log(localToken)
 }
 
+
+
 updateToken = (newToken: any) => {
   localStorage.setItem("sessionToken", newToken)
   this.setState({ token: newToken})

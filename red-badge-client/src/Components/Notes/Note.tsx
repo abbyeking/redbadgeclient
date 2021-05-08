@@ -27,6 +27,11 @@ export class Note extends Component<acceptedProps, valueTypes> {
         }
     }
 
+//  componentDidMount() {
+//     this.props.handleSubmit()
+//     console.log("hello")
+//   }
+
     updateNotes = (id: any) => {
         fetch(`http://localhost:3000/notes/${id}`, {
             method: "PUT",

@@ -84,6 +84,7 @@ handleSubmit = () => {
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {this.state.results.map((result, index) => (
             <PodcastFavoritesCard
+              handleSubmit={this.handleSubmit}
               token={this.props.token}
               result={result}
               index={index} />
